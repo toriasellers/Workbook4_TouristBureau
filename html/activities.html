@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Activities</title>
+    <link src="../css/style.css" />
+
+  </head>
+  <body>
+    <h1>Mystery Flesh Pit National Park</h1>
+    <p>
+      The Mystery Flesh Pit National Park is an online world building project
+      created in 2019 on Reddit by an artist named Trevor Roberts. The project
+      revolves around the fictional “Mystery Flesh Pit”, a national park located
+      near the town of Gumption, Texas. The park itself is a massive
+      subterranean organism of unfathomable size discovered during the mid
+      1970s, and was made a national park later on in the 1980s before its
+      sudden closure to the public in 2007.
+    </p>
+
+    <nav>
+        <li>
+          <ul>
+            <a href="index.html">Home</a>
+          </ul>
+          <ul>
+            <a href="hiking.html">Hiking</a>
+          </ul>
+        </li>
+      </nav>
+
+    <h2> Activities </h2>
+
+    <label for="category">Choose a categories:</label>
+
+<select name="category" id="select-categories">
+
+</select>
+
+<select id="select-activities">
+    <!-- Options would go here -->
+</select>
+
+<div id="form">
+    <h3>Purchase Tickets</h3>
+    <form id="ticketForm">
+      <label for="numTickets">Number of Tickets:</label>
+      <input type="number" id="numTickets" name="numTickets" min="1" required><br>
+  
+      <label for="creditCard">Credit Card Number:</label>
+      <input type="text" id="creditCard" name="creditCard" required><br>
+  
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required><br>
+  
+      <input type="submit" value="Purchase">
+      <input type="reset" value="Reset">
+    </form>
+  
+    <p id="purchaseResult"></p>
+    
+    <footer>
+      <p>
+        <small>
+          This fan-webpage was created By Victoria Sellers <br />
+          To see more of Trevor's project please go to:
+          <a href="https://www.mysteryfleshpitnationalpark.com/"
+            >www.mysteryfleshpitnationalpark.com</a
+          >
+        </small>
+      </p>
+    </footer>
+
+    <script src="../scripts/activities.js"></script>
+  </body>
+</html>
