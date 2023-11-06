@@ -105,52 +105,81 @@ let activities = [
 
 
 
-window.onload = function () {
-    populateCategoryDropdown();
-    selectCategoriesEl.onchange = function(){
+const categoryDropdown = document.getElementById("select-categories");
+const activityDropdown = document.getElementById("select-activities");
+const activityDetails = document.getElementById("activityInformation");
+const purchaseForm = document.getElementById("purchaseForm");
+const purchaseButton = document.getElementById("purchaseButton");
+const purchaseConfirmation = document.getElementById("purchaseConfirmationMessage");
+const resetButton = document.getElementById("resetButton");
 
-
-        selectActivitiesEl.style.visibility = "visible"; 
-        selectActivitiesEl.options.length = 0; 
-
-        
-
-        let option = new Option("");
-        selectActivitiesEl.appendChild(option);
-
-        for(let activity of activities){
-            let selectedCategory = selectCategoriesEl.value;
-
-            // Only add
-            if(activity.category === selectedCategory){
-                let option = new Option(activity.name);
-                selectActivitiesEl.appendChild(option);
-            }
-        }
-
+categoryDropdown.addEventListener("change", () => {
+  const selectedCategory = categoryDropdown.value;
+  activityDropdown.innerHTML = "<option value='Select one'>Select one</option>";
+  for (const activity of activities) {
+    if (activity.category === selectedCategory) {
+      const option = new Option(activity.name, activity.id);
+      activityDropdown.appendChild(option);
     }
-    selectActivitiesEl.onchange = function(){
-        let activitySelected = selectActivitiesEl.value;
+  }
+});
 
-        for(let activity of activities){
-            if(activity.name === activitySelected){
-                console.log(activity);
-            }
-        }
-        
-        console.log("trigger", selectActivitiesEl.value);
-    }
-};
-function populateCategoryDropdown() {
-    let categories = ["Select One", "Adventures", "Arts & Crafts", "Museums", "Wine Tastings", "Other"];
-    
-    for (let i = 0; i < categories.length; i++) {
-        let categoryName = categories[i];
-        let categoryOption = new Option(categoryName);
-        selectCategoriesEl.appendChild(categoryOption);
-    }
+activityDropdown.addEventListener("change", () => {
+  const selectedActivityId = activityDropdown.value;
+  const selectedActivity = activities.find((activity) => activity.id === selectedActivityId);
+  
+  if (selectedActivity && selectedActivity.price > 0) {
+    purchaseForm.style.display = "block";
+  } else {
+    purchaseForm.style.display = "none";
+  }
+  
+  if (selectedActivity) {
+    displayActivityDetails(selectedActivity);
+  }
+});
+
+function displayActivityDetails(activity) {
+  const details = `
+    <h3>${activity.name}</h3>
+    <p>${activity.description}</p>
+    <p>Location: ${activity.location}</p>
+    <p>Price: $${activity.price.toFixed(2)}</p>
+  `;
+  activityDetails.innerHTML = details;
 }
 
+purchaseButton.addEventListener("click", () => {
+    event.preventDefault();
+
+  const ticketCount = document.getElementById("numOfTickets").value;
+  const creditCard = document.getElementById("creditCardInformation").value;
+  const email = document.getElementById("emailAddressInput").value;
+
+  const selectedActivityId = activityDropdown.value;
+  const selectedActivity = activities.find((activity) => activity.id === selectedActivityId);
+
+  if (selectedActivity) {
+    const totalPrice = selectedActivity.price * ticketCount;
+
+    const confirmationMessage = `You have purchased ${ticketCount} ticket(s) for ${selectedActivity.name}.
+    Total Price: $${totalPrice.toFixed(2)}
+    Credit Card: ${creditCard}
+    Email Address: ${email}`;
+
+    purchaseConfirmation.innerHTML = confirmationMessage;
+    displayActivityDetails(selectedActivity);
+  }
+  return false;
+});
+
+resetButton.addEventListener("click", () => {
+  document.getElementById("ticketCount").value = 1;
+  document.getElementById("creditCard").value = "";
+  document.getElementById("email").value = "";
+  purchaseConfirmation.innerHTML = "";
+  activityDetails.innerHTML = "";
+});
 
 
 
