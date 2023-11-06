@@ -173,14 +173,6 @@ purchaseButton.addEventListener("click", () => {
   return false;
 });
 
-resetButton.addEventListener("click", () => {
-  document.getElementById("ticketCount").value = 1;
-  document.getElementById("creditCard").value = "";
-  document.getElementById("email").value = "";
-  purchaseConfirmation.innerHTML = "";
-  activityDetails.innerHTML = "";
-});
-
 
 
 
